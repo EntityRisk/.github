@@ -1,0 +1,144 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+      - devel
+  release:
+    types:
+      - created
+
+jobs:
+
+  build:
+    runs-on: ${{ matrix.config.os }}
+
+    name: ${{ matrix.config.os }} (${{ matrix.config.python-version }})
+
+    strategy:
+      matrix:
+        config:
+#          - {os: macOS-latest,   python-version: "3.8"}
+#          - {os: windows-latest, python-version: "3.8"}
+          - {os: ubuntu-latest,  python-version: "3.8"}
+#          - {os: macOS-latest,   python-version: "3.9"}
+          - {os: windows-latest, python-version: "3.9"}
+          - {os: ubuntu-latest,  python-version: "3.9"}
+#          - {os: macOS-latest,   python-version: "3.10"}
+#          - {os: windows-latest, python-version: "3.10"}
+          - {os: ubuntu-latest,  python-version: "3.10"}
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.config.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.config.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install .
+    - name: Check for editable install
+      run: pip install -e .
+
+  testing:
+    needs: build
+    name: PyTest based on Python ${{ matrix.config.python-version }} on ${{ matrix.config.os }}
+    runs-on: ${{ matrix.config.os }}
+    strategy:
+      matrix:
+        config:
+          - {os: windows-latest, python-version: "3.9"}
+          - {os: ubuntu-latest,  python-version: "3.8"}
+          - {os: ubuntu-latest,  python-version: "3.9"}
+          - {os: ubuntu-latest,  python-version: "3.10"}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.config.python-version }}
+        uses: actions/setup-python@v2
+        with:
+         python-version: ${{ matrix.config.python-version }}
+      - name: Install dependencies
+        run: |
+         python -m pip install --upgrade pip
+         pip install .[tests]
+      - name: Check for editable install
+        run: pip install -e .
+      - name: Run test suite
+        run: |
+          python -m pytest tests
+
+  coverage:
+    needs: testing
+    name: Coverage calculations based on Python 3.8
+    runs-on: ubuntu-latest
+    env:
+      COVERAGE_SINGLE: 75
+      COVERAGE_TOTAL: 75
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.config.python-version }}
+        uses: actions/setup-python@v2
+        with:
+         python-version: 3.8
+      - name: Install dependencies
+        run: |
+         python -m pip install --upgrade pip
+         pip install .[tests]
+      - name: Run tests
+        run: |
+          python -m pytest --cache-clear --cov=erap --cov-report=xml tests
+      - name: "Upload coverage to Codecov"
+        uses: codecov/codecov-action@v2
+        with:
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+
+  linting:
+    needs: build
+    name: Lint based on Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install .[tests]
+    - name: Analysing the code with pylint
+      run: |
+        pylint --rcfile=.pylintrc erap tests
+
+  sphinx:
+    needs: build
+    name: Build Sphinx Docs based on Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.8", "3.9", "3.10"]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install .[docs]
+    - name: Sphinx Build
+      run: |
+        cd docs
+        make clean
+        make html
