@@ -74,7 +74,7 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           fail_ci_if_error: true
-          token: ${{ inputs.codecov-secret }}
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   linting:
     needs: build
