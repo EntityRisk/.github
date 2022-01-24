@@ -1,34 +1,28 @@
-name: Ppython Package CI Workflow
+name: Python Package CI Workflow
 
 on:
   workflow_call:
-  
+    inputs:
+      os:
+        required: true
+        type: string
+      python-version:
+        required: true
+        type: string
+
 jobs:
 
   build:
-    runs-on: ${{ matrix.config.os }}
+    runs-on: ${{ inputs.os }}
 
-    name: ${{ matrix.config.os }} (${{ matrix.config.python-version }})
-
-    strategy:
-      matrix:
-        config:
-#          - {os: macOS-latest,   python-version: "3.8"}
-#          - {os: windows-latest, python-version: "3.8"}
-          - {os: ubuntu-latest,  python-version: "3.8"}
-#          - {os: macOS-latest,   python-version: "3.9"}
-          - {os: windows-latest, python-version: "3.9"}
-          - {os: ubuntu-latest,  python-version: "3.9"}
-#          - {os: macOS-latest,   python-version: "3.10"}
-#          - {os: windows-latest, python-version: "3.10"}
-          - {os: ubuntu-latest,  python-version: "3.10"}
+    name: ${{ inputs.os }} (${{ inputs.python-version }})
 
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.config.python-version }}
+    - name: Set up Python ${{ inputs.python-version }}
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.config.python-version }}
+        python-version: ${{ inputs.python-version }}
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -38,21 +32,14 @@ jobs:
 
   testing:
     needs: build
-    name: PyTest based on Python ${{ matrix.config.python-version }} on ${{ matrix.config.os }}
-    runs-on: ${{ matrix.config.os }}
-    strategy:
-      matrix:
-        config:
-          - {os: windows-latest, python-version: "3.9"}
-          - {os: ubuntu-latest,  python-version: "3.8"}
-          - {os: ubuntu-latest,  python-version: "3.9"}
-          - {os: ubuntu-latest,  python-version: "3.10"}
+    name: PyTest based on Python ${{ inputs.python-version }} on ${{ inputs.os }}
+    runs-on: ${{ inputs.os }}
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python ${{ matrix.config.python-version }}
+      - name: Set up Python ${{ inputs.python-version }}
         uses: actions/setup-python@v2
         with:
-         python-version: ${{ matrix.config.python-version }}
+         python-version: ${{ inputs.python-version }}
       - name: Install dependencies
         run: |
          python -m pip install --upgrade pip
@@ -65,14 +52,14 @@ jobs:
 
   coverage:
     needs: testing
-    name: Coverage calculations based on Python 3.8
-    runs-on: ubuntu-latest
+    name: Coverage calculations based on Python ${{ inputs.python-version }}
+    runs-on: ${{ inputs.os }}
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python ${{ matrix.config.python-version }}
+      - name: Set up Python ${{ inputs.python-version }}
         uses: actions/setup-python@v2
         with:
-         python-version: 3.8
+         python-version: ${{ inputs.python-version }}
       - name: Install dependencies
         run: |
          python -m pip install --upgrade pip
@@ -88,17 +75,14 @@ jobs:
 
   linting:
     needs: build
-    name: Lint based on Python ${{ matrix.python-version }}
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+    name: Lint based on Python ${{ inputs.python-version }}
+    runs-on: ${{ inputs.os }}
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python ${{ inputs.python-version }}
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: ${{ inputs.python-version }}
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -110,17 +94,14 @@ jobs:
 
   sphinx:
     needs: build
-    name: Build Sphinx Docs based on Python ${{ matrix.python-version }}
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: ["3.8", "3.9", "3.10"]
+    name: Build Sphinx Docs based on Python ${{ inputs.python-version }}
+    runs-on: ${{ inputs.os }}
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Python ${{ matrix.python-version }}
+    - name: Set up Python ${{ inputs.python-version }}
       uses: actions/setup-python@v2
       with:
-        python-version: ${{ matrix.python-version }}
+        python-version: ${{ inputs.python-version }}
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
