@@ -1,17 +1,8 @@
-name: CI Workflow
+name: Ppython Package CI Workflow
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
-      - devel
-  release:
-    types:
-      - created
-
+  workflow_call:
+  
 jobs:
 
   build:
@@ -76,9 +67,6 @@ jobs:
     needs: testing
     name: Coverage calculations based on Python 3.8
     runs-on: ubuntu-latest
-    env:
-      COVERAGE_SINGLE: 75
-      COVERAGE_TOTAL: 75
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.config.python-version }}
