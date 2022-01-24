@@ -9,9 +9,6 @@ on:
       python-version:
         required: true
         type: string
-      CODECOV_TOKEN:
-        required: true
-        type: string
 
 jobs:
 
@@ -74,7 +71,7 @@ jobs:
         uses: codecov/codecov-action@v2
         with:
           fail_ci_if_error: true
-          token: ${{ inputs.CODECOV_TOKEN }}
+          token: ${{ secrets.CODECOV_TOKEN }}
 
   linting:
     needs: build
