@@ -67,13 +67,12 @@ jobs:
       - name: Run tests
         run: |
           python -m pytest --cache-clear --cov=erap --cov-report=xml tests
-          find . -name "*.xml"
       - name: "Upload coverage to Codecov"
         uses: codecov/codecov-action@v2
         with:
           fail_ci_if_error: true
           token: ${{ secrets.CODECOV_TOKEN }}
-          files: coverage.xml
+          files: ./coverage.xml
 
   linting:
     needs: build
