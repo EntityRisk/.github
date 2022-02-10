@@ -13,7 +13,7 @@ Before sending an analytic deliverable to a client, someone other than the prima
 - [ ] A second set of eyes has reviewed all the code being used to support the deliverable
   - [ ] The reviewer has recorded all questions and comments to be resolved with the writer(s) of the code
 - [ ] You can run the code from start to finish and reproduce the results (to within statistical variation if Monte Carlo techniques are employed)
-  - [ ] If the results defy expectations, consider having someone independently replicate the results with their own code/implementation.  
+  - If the results defy expectations, consider having someone independently replicate the results with their own code/implementation.  
 - [ ] Edge-case and extreme value testing produces expected results
 - [ ] The final results are internally consistent
 - [ ] When applicable, the results have been compared to external sources
