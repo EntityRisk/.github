@@ -12,6 +12,9 @@ on:
       package:
         required: true
         type: string
+    secrets:
+      ACCESS_TOKEN:
+        required: true
 
 jobs:
 
