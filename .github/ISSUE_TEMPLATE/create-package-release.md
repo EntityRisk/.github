@@ -9,7 +9,7 @@ assignees: ''
 
 Please do the following steps in order to release a new version of the package:
 
-- [ ] Check out a new branch from `origin/main` just for the purpose of the release (link it to this issue)
+- [ ] Clone `origin/releases` and make sure the latest commits from `main` have been merged in
 - [ ] Run `pylint` and `velin` on the entire package
 - [ ] Run the test suite, including all optional tests
 - [ ] Generate all the documentation and review for errors and placeholders
@@ -17,6 +17,4 @@ Please do the following steps in order to release a new version of the package:
 - [ ] **If this is planned as the first major release:** Remove the "major_version_zero = true" line from `pyproject.toml`
 - [ ] Run `cz bump` to update the changelog, bump the version number, and generate the proper tags
 - [ ] Push all commits, including tags, with `git push --tags`
-- [ ] Open a pull request for the release and request the relevant approvals
-- [ ] Once approved, go to the "Tags" section of the github repository and draft a new release from the appropriate tagged version.
-- [ ] Merge the PR
+- [ ] Go to the "Tags" section of the github repository and draft a new release from the appropriate tagged version.
