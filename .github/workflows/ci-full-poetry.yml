@@ -53,14 +53,17 @@ jobs:
       run: poetry install --no-interaction
     - name: Analysing the code with pylint
       run: |
+        source $VENV
         pylint --rcfile=.pylintrc ${{ inputs.package }} tests
     - name: Sphinx Build
       run: |
+        source $VENV
         cd docs
         make clean
         make html
     - name: Test Suite with Coverage
       run: |
+        source $VENV
         python -m pytest --cache-clear --cov=${{ inputs.package }} --cov-report=xml tests
     - name: "Upload coverage to Codecov"
       uses: codecov/codecov-action@v2
