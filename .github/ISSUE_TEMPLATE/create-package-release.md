@@ -9,7 +9,7 @@ assignees: ''
 
 Please do the following steps in order to release a new version of the package:
 
-- [ ] Clone `origin/release` and make sure the latest commits from `main` have been merged in
+- [ ] Create or clone a `release` branch and make sure the latest commits from `main` have been merged in
 - [ ] Run `pylint` and `velin` on the entire package
 - [ ] Run the test suite, including all optional tests
 - [ ] Generate all the documentation and review for errors and placeholders
