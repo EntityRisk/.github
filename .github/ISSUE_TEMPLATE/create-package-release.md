@@ -1,21 +1,22 @@
----
+______________________________________________________________________
+
 name: Create Package Release
 about: Checklist for new Python package releases
-title: "[RELEASE]"
+title: "\[RELEASE\]"
 labels: ''
 assignees: ''
 
----
+______________________________________________________________________
 
 Please do the following steps in order to release a new version of the package:
 
-- [ ] Create or clone a `release` branch and make sure the latest commits from `main` have been merged in
-- [ ] Run `pylint` and `velin` on the entire package
-- [ ] Run the test suite, including all optional tests
-- [ ] Generate all the documentation and review for errors and placeholders
-- [ ] Check your workspace to confirm there are no staged changes or unknown files
-- [ ] **If this is planned as the first major release:** Remove the "major_version_zero = true" line from `pyproject.toml`
-- [ ] Push any/all local changes
-- [ ] Open a PR from `release` back to `main`
+- \[ \] Create or clone a `release` branch and make sure the latest commits from `main` have been merged in
+- \[ \] Run `pylint` and `velin` on the entire package
+- \[ \] Run the test suite, including all optional tests
+- \[ \] Generate all the documentation and review for errors and placeholders
+- \[ \] Check your workspace to confirm there are no staged changes or unknown files
+- \[ \] **If this is planned as the first major release:** Remove the "major_version_zero = true" line from `pyproject.toml`
+- \[ \] Push any/all local changes
+- \[ \] Open a PR from `release` back to `main`
 
 Please only push once whenever possible. Multiple pushes will result in multiple releases, often with minor to no differences.
