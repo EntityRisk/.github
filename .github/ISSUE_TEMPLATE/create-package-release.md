@@ -18,6 +18,6 @@ Please do the following steps in order to release a new version of the package:
 - [ ] **If this is planned as the first major release:** Remove the "major_version_zero = true" line from `pyproject.toml`
 - [ ] Push any/all local changes
 - [ ] Open a PR from back to `main` with the proposed new version number as the title
-- [ ] Once that is approved and merged, from an up-to-date `main`, run `cz bump -ch`, commit the new changelog and then push with `git push --tags`
+- [ ] Once that is approved and merged, from an up-to-date `main`, run `cz bump -ch` and then push with `git push --tags`
 
 Please only push once whenever possible. Multiple pushes will result in multiple releases, often with minor to no differences.
