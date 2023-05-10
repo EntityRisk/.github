@@ -7,8 +7,6 @@
 name: Mark stale issues and pull requests for projects
 
 on:
-  schedule:
-  - cron: '43 7 * * *'
   workflow_call:
     secrets:
       GITHUB_TOKEN:
