@@ -1,0 +1,51 @@
+name: Pylint for projects
+
+on:
+  workflow_call:
+    inputs:
+      python-version:
+        required: true
+        type: string
+    secrets:
+      ACCESS_TOKEN:
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.9", "3.10"]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Configure secret access
+      run: |
+        git config --global url."https://${{ secrets.ACCESS_TOKEN }}@github".insteadOf https://github
+    - name: Set up python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ inputs.python-version }}
+    - name: Install quarto
+      uses: quarto-dev/quarto-actions/setup@v2
+    - name: Install poetry
+      uses: snok/install-poetry@v1
+      with:
+        virtualenvs-create: true
+        virtualenvs-in-project: true
+        installer-parallel: true
+    - name: Load cached venv
+      id: cached-poetry-dependencies
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: venv-${{ runner.os }}-${{ inputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+    - name: Install dependencies
+      if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+      run: poetry install --no-interaction --no-root --all-extras
+    - name: Install package
+      run: poetry install --no-interaction --all-extras
+    - name: Analysing the code with pylint
+      shell: bash -l {0}
+      run: |
+        source $VENV
+        pylint --rcfile=.pylintrc $(git ls-files '*.py')
