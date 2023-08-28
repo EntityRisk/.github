@@ -19,5 +19,3 @@ Please do the following steps in order to release a new version of the package:
 - [ ] Push any/all local changes
 - [ ] Open a PR from back to `main` with the proposed new version number as the title
 - [ ] Once that is approved, but before it is merged, run `cz bump -ch --no-verify` and then push with `git push --all --follow-tags`
-
-Please only push once whenever possible. Multiple pushes will result in multiple releases, often with minor to no differences.
