@@ -18,4 +18,4 @@ Please do the following steps in order to release a new version of the package:
 - [ ] **If this is planned as the first major release:** Remove the "major_version_zero = true" line from `pyproject.toml`
 - [ ] Push any/all local changes
 - [ ] Open a PR from back to `main` with the proposed new version number as the title
-- [ ] Once that is approved, but before it is merged, run `cz bump -ch --no-verify` and then push with `git push --all --follow-tags`
+- [ ] Once that is approved, but before it is merged, run `cz bump -ch --no-verify` and then push with `git push && git push --follow-tags`
