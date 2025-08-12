@@ -1,0 +1,14 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommitTypeAll(build)"
+  ],
+  "packageRules": [
+    {
+      "description": "Get ER packages from Gemfury",
+      "matchPackageNames": ["er-**"],
+      "registryUrls": ["https://pypi.fury.io/entityrisk/"]
+    }
+  ]
+}
