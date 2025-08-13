@@ -26,7 +26,7 @@ jobs:
     name: Full Test Suite ${{ inputs.os }} (${{ inputs.python-version }})
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
       with:
         fetch-depth: 0
     - name: Throw deprecation error
