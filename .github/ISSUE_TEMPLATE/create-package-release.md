@@ -14,6 +14,8 @@ The following are guidelines for preparing the user-facing release notes.
 - Include details regarding the changes that are relevant to the user. Do not include implementation details that are not user-facing.
 - Updates should be included in all applicable sections. For example, a bug fix that introduces a breaking change should be listed under both the "API changes" and "Bug fixes" sections.
 
+Additionally, the reviewer should not formally approve the release PR until it is ready to merge. Any intermediate approval should be communicated by comment only.
+
 ## Instructions
 
 Please do the following steps in order to release a new version of the package:
@@ -28,7 +30,7 @@ Please do the following steps in order to release a new version of the package:
 - [ ] **If this is planned as the first major release:** Remove the "major_version_zero = true" line from `pyproject.toml`
 - [ ] Push any/all local changes
 - [ ] Open a PR from back to `main` with the proposed new version number as the title
-- [ ] Upon completion of review, the reviewer should approve **by comment only** (as opposed to official approval) to prevent premature merging to `main`
+- [ ] Upon completion of review, the reviewer should approve **by comment only** (as opposed to formal approval) to prevent premature merging to `main`
 - [ ] Run `cz bump --dry-run` and confirm that the commitizen-derived version bump is the expected increment as per [Semantic Versioning](https://semver.org/)
 - [ ] Run `cz bump -ch --no-verify` and then push with `git push && git push --follow-tags`
 - [ ] The reviewer must then formally approve the PR to be merged.
