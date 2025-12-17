@@ -20,7 +20,7 @@ Please do the following steps in order to release a new version of the package:
 - [ ] **If this is planned as the first major release:** Remove the "major_version_zero = true" line from `pyproject.toml`
 - [ ] Push any/all local changes
 - [ ] Open a PR from back to `main` with the proposed new version number as the title
-- [ ] Upon completion of review, the reviewer should approve **by comment only** (as opposed to official approval) to prevert premature merging to `main`
+- [ ] Upon completion of review, the reviewer should approve **by comment only** (as opposed to official approval) to prevent premature merging to `main`
 - [ ] Run `cz bump --dry-run` and confirm that the commitizen-derived version bump is the expected increment as per [Semantic Versioning](https://semver.org/)
 - [ ] Run `cz bump -ch --no-verify` and then push with `git push && git push --follow-tags`
 - [ ] The reviewer must then formally approve the PR to be merged.
