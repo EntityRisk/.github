@@ -29,7 +29,7 @@ Please do the following steps in order to release a new version of the package:
 - [ ] Check your workspace to confirm there are no staged changes or unknown files
 - [ ] **If this is planned as the first major release:** Remove the "major_version_zero = true" line from `pyproject.toml`
 - [ ] Push any/all local changes
-- [ ] Open a PR from back to `main` with the proposed new version number as the title
+- [ ] Open a PR back to `main` with the proposed new version number as the title
 - [ ] Upon completion of review, the reviewer should approve **by comment only** (as opposed to formal approval) to prevent premature merging to `main`
 - [ ] Run `cz bump --dry-run` and confirm that the commitizen-derived version bump is the expected increment as per [Semantic Versioning](https://semver.org/)
 - [ ] Run `cz bump -ch --no-verify` and then push with `git push && git push --follow-tags`
