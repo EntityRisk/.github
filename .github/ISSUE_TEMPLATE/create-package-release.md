@@ -6,6 +6,14 @@ labels: ''
 assignees: ''
 ---
 
+## Guidelines
+
+The following are guidelines for preparing the user-facing release notes.
+
+- Inspect the previous releases and follow their conventions, with preference to the most recent ones.
+- Include details regarding the changes that are relevant to the user. Do not include implementation details that are not user-facing.
+- Updates should be included in all applicable sections. For example, a bug fix that introduces a breaking change should be listed under both the "API changes" and "Bug fixes" sections.
+
 ## Instructions
 
 Please do the following steps in order to release a new version of the package:
@@ -24,11 +32,3 @@ Please do the following steps in order to release a new version of the package:
 - [ ] Run `cz bump --dry-run` and confirm that the commitizen-derived version bump is the expected increment as per [Semantic Versioning](https://semver.org/)
 - [ ] Run `cz bump -ch --no-verify` and then push with `git push && git push --follow-tags`
 - [ ] The reviewer must then formally approve the PR to be merged.
-
-## Guidelines
-
-The following are guidelines for preparing the user-facing release notes.
-
-- Inspect the previous releases and follow their conventions, with preference to the most recent ones.
-- Include details regarding the changes that are relevant to the user. Do not include implementation details that are not user-facing.
-- Updates should be included in all applicable sections. For example, a bug fix that introduces a breaking change should be listed under both the "API changes" and "Bug fixes" sections.
