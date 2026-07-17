@@ -2,8 +2,11 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended",
-    ":semanticCommitTypeAll(build)"
+    ":semanticCommitTypeAll(build)",
+    "abandonments:recommended",
+    ":automergeMinor"
   ],
+  "schedule": ["* * * * 0,6"],
   "packageRules": [
     {
       "description": "Get ER packages from Gemfury",
